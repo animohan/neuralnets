@@ -5,11 +5,15 @@ title: "Backpropagation"
 ## Exploring the example given in the AI-WorkShop by James McCaffrey.
 
 ### Sample Feed Forward Neural Network
-![Neural Net Image](NN1.PNG)
 
+#### Part 1: 
 Goal here is to find the change in weights to reduce the output error. In the first section, we will look at how the weights to the output layer can be modified based on the output values and the error rate. 
 
 I have added one more node to explicitly show the Softmax operations as it is easier to show calculations.
+
+
+![Neural Net Image showing output nodes](NN1.PNG)
+
 
 1) Lets look at the output from the last hidden layer:
     $$u = (x_{0}*w_{01}) + (x_{1}*w_{11}) + (x_{2}*w_{21}) + (x_{3}*w_{31}) + (x_{4}*w_{41})$$
@@ -94,4 +98,10 @@ I have added one more node to explicitly show the Softmax operations as it is ea
     $w_{ij} = w_{ij} + \alpha * \frac{\partial E}{\partial w_{ij}}$
 
     where $\alpha$ is the learning rate
+
+
+
+#### Part 2: 
+Goal  for Part 2 is to find the change in weights in the hidden layer to reduce the output error. We will follow the backpropgation algorithm that James showed in the class.
+
 
