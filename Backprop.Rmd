@@ -12,7 +12,7 @@ Goal here is to find the change in weights to reduce the output error. In the fi
 I have added one more node to explicitly show the Softmax operations as it is easier to show calculations.
 
 
-![Neural Net Image showing output nodes](NN1.PNG)
+![](NN1.PNG)
 
 
 1) Lets look at the output from the last hidden layer:
@@ -102,6 +102,63 @@ I have added one more node to explicitly show the Softmax operations as it is ea
 
 
 #### Part 2: 
-Goal  for Part 2 is to find the change in weights in the hidden layer to reduce the output error. We will follow the backpropgation algorithm that James showed in the class.
+Goal  for Part 2 is to find the change in weights in the hidden layer to reduce the output error. Following the backpropgation algorithm that James showed in the class.
 
+1) Let us take a particular hidden node :- h1
+   This node has input from the following nodes $x_{01}, x_{02} and x_{03}$ and the weights of the inputs are $w_{01},     w_{02}, w_{03}$. $w_{00}$ is the bias term.
+   
+      For convenience let us say:
+      $ u = (x_{00} * w_{00}) + (x_{01} * w_{01}) + (x_{02} * w_{02}) + (x_{03} * w_{03})$
+    
+     Additionally, we are using the tanh function for non-linear thresholding. So let us say:
+       $h_1 = tanh(u)$ is the output of the hidden node.
+    
+2) Now to find the error propogated to the input weigth to the hidden node h1 = w11
 
+    $\frac{\partial E}{\partial w_{11}}$  =  Sum of errors propagated to node h1 * Derivative of output of h1 w.r.t to the input weight w11
+   
+    $\frac{\partial E}{\partial w_{11}} =  \frac{\partial E}{\partial h_1} * \frac{\partial h_1}{\partial u} * \frac{\partial u}{\partial w_{11}}$
+    
+    Let us calculate each term individually
+    
+3) $\frac{\partial u}{\partial w_{11}}$
+  
+      $\frac{\partial u}{\partial w_{11}}$ = $\frac{\partial (x_{0}*w_{01}) + (x_{1}*w_{11}) + (x_{2}*w_{21}) + (x_{3}*w_{31}) }{\partial w_{11}}$
+      
+      $\frac{\partial u}{\partial w_{11}}$ = $x_{1}$
+      
+      similarly,
+      
+      $\frac{\partial u}{\partial w_{21}}$ = $x_{2}$
+      
+      And in general
+      
+      $\frac{\partial u}{\partial w_{i1}}$ = $x_{i}$
+  
+4) Note: $h_1 = tanh(u)$ is the output of the hidden node.
+                
+    $\frac{\partial h_{1}}{\partial u}$ = $\frac{\partial tanh(u)}{\partial u}$
+                
+      $=\frac{\partial \frac{sinh(u)}{cosh(u)}}{\partial u}$
+                
+      $=\frac{cosh(u)* \frac{dsinh(u)}{du} - sinh(u) * \frac{dcosh(u)}{du}  }{(cosh(u))^2}$
+                
+      $=\frac{(cosh(u))^2 - (sinh(u))^2}{(cosh(u))^2}$
+                
+      $= 1 - (tanh(u))^2$
+                
+      $= (1-tanh(u))(1 + tanh(u))$
+                
+      $\frac{\partial h_{1}}{\partial u}$ $= (1-h_1)(1+h_1)$
+          
+      In general,
+      
+      $\frac{\partial h_{j}}{\partial u}$ $= (1-h_j)(1+h_j)$
+      
+5) Lastly, we have to calculate:
+  $\frac{\partial E}{\partial h_1}$  = Backpropogated error at the output of h1
+  
+#### How is $\frac{\partial E}{\partial h_1}$  = $\sum \delta_j*w_j$ ?
+           
+           
+        
